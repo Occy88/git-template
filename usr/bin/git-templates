@@ -1,6 +1,5 @@
 #!/bin/bash
 
-ACTION=$1
 shift
 
 python3 /usr/lib/git_templates/main.py "$@"
