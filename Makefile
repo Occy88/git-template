@@ -85,6 +85,8 @@ pre-commit:
 safety:
 	poetry run safety check
 
+build_local:
+	(cd .. && dpkg-deb --build git-templates &&  sudo dpkg --install git-templates.deb)
 
 #DEPLOY STUFF.
 quality:
