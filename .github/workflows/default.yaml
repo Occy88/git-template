@@ -1,0 +1,60 @@
+name: Python Package CI/CD Workflow
+
+on:
+  push:
+    branches: [ '**' ]
+  pull_request:
+    branches: [ '**' ]
+
+jobs:
+  build-and-test:
+    runs-on: ubuntu-latest
+    container: 
+      image: python:3.9  # Assuming this image has Poetry pre-installed
+    steps:
+    - uses: actions/checkout@v2
+    - name: Install dependencies
+      run: poetry install
+    - name: quality
+      run: make quality
+    - name: Run tests
+      run: make test
+
+  deploy-to-apt:
+    needs: build-and-test
+    runs-on: ubuntu-latest
+    if: github.ref == 'refs/heads/main'
+    steps:
+    - uses: actions/checkout@v2
+    - name: Build and deploy to APT repo
+      run: |
+        poetry build
+        # Your command to deploy to the APT repository goes here
+      env:
+        APT_REPO_SECRET: ${{ secrets.APT_REPO_SECRET }}
+
+  deploy-to-choco:
+    needs: build-and-test
+    runs-on: windows-latest
+    if: github.ref == 'refs/heads/main'
+    steps:
+    - uses: actions/checkout@v2
+    - name: Build and deploy to Chocolatey
+      run: |
+        poetry build
+        # Your command to package and push to Chocolatey goes here
+      env:
+        CHOCO_API_KEY: ${{ secrets.CHOCO_API_KEY }}
+
+  deploy-to-brew:
+    needs: build-and-test
+    runs-on: macos-latest
+    if: github.ref == 'refs/heads/main'
+    steps:
+    - uses: actions/checkout@v2
+    - name: Build and deploy to Homebrew
+      run: |
+        poetry build
+        # Your commands to update the formula and push to a Homebrew tap go here
+      env:
+        BREW_TOKEN: ${{ secrets.BREW_TOKEN }}
