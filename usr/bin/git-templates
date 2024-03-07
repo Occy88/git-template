@@ -1,26 +1,8 @@
 #!/bin/bash
 
-if [ "$#" -lt 2 ]; then
-    echo "Usage: git templates <add/remove/update> [...args]"
-    exit 1
-fi
-
 ACTION=$1
 shift
 
-case "$ACTION" in
-    add)
-        python3 /usr/lib/git-templates/add_template.py "$@"
-        ;;
-    remove)
-        python3 /usr/lib/git-templates/remove_template.py "$@"
-        ;;
-    update)
-        python3 /usr/lib/git-templates/update_templates.py "$@"
-        ;;
-    *)
-        echo "Unsupported action. Use add, remove, or update."
-        exit 1
-        ;;
-esac
+python3 /usr/lib/git_templates/main.py "$@"
+
 
