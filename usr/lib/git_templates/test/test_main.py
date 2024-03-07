@@ -22,16 +22,16 @@ def mock_commands(mocker,main_module):
         setattr(cmds,cmd,mocker.MagicMock())
     return cmds
 
-@pytest.mark.parametrize("command", ['g s -h','script --help','g s help','g s other'])
+@pytest.mark.parametrize("command", ['script -h','script --help','script help','script other'])
 def test_unsupported_commands(command,mock_sys,mock_print):
     mock_sys.argv=command.split()
     main()
     mock_print.assert_called_once_with(f"Usage: {', '.join(commands.__all__)}")
 
 
-@pytest.mark.parametrize("command", ['g s add something','g s update something','g s remove'])
+@pytest.mark.parametrize("command", ['script add something','script update something','script remove'])
 def test_supported_commands(command,mock_sys,mock_commands):
     mock_sys.argv=command.split()
     main()
-    getattr(mock_commands,mock_sys.argv[2]).assert_called_with(*mock_sys.argv[3:])
+    getattr(mock_commands,mock_sys.argv[1]).assert_called_with(*mock_sys.argv[2:])
 
