@@ -1,1 +1,1 @@
-# git-template
+# git-templates

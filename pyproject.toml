@@ -1,5 +1,5 @@
 [tool.poetry]
-name = "git-template"
+name = "git-templates"
 version = "0.1.0"
 description = ""
 authors = ["Octavio <octavio.delser@gmail.com>"]
