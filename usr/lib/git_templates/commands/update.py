@@ -64,11 +64,5 @@ def update_templates(refs=None):
 
     print("Templates updated successfully.")
 
-if __name__ == '__main__':
-    _refs = sys.argv[1].split(',') if len(sys.argv) > 1 else None
-
-    try:
-        update_templates(_refs)
-    except Exception as e:
-        print(e)
-        sys.exit(1)
+def update():
+    ...

@@ -29,23 +29,27 @@ def get_repo_name_from_url(url):
         raise ValueError(f"Ref not found from '{path}', set it manually with `-r`")
     return ref
 
-def main():
-    parser = argparse.ArgumentParser(description="Add a git template to the .git/templates/meta.yaml file.")
+def add(git_url:str,*args_list):
+    # Process the rest of the arguments using argparse
+    parser = argparse.ArgumentParser(description="Add a git template to the .git/templates/meta.yaml file.", add_help=False)
     parser.add_argument('-r', '--ref', type=str, help="Reference name for the template. Defaults to the repo name extracted from the URL.")
-    parser.add_argument('url', type=str, help="URL of the git repository.")
     parser.add_argument('-b', '--branch', type=str, help="Branch name. If not specified, defaults to null in the YAML file.", default=None)
-    parser.add_argument('--help', '-h', action='help', default=argparse.SUPPRESS, help='Show this help message and exit.')
+    # Check if the first argument is help
+    if git_url in ['-h', '--help']:
+        parser.print_help()
+        return
 
-    args = parser.parse_args()
+    # Since the URL is already extracted, we parse the remaining args
+    args = parser.parse_args(args_list)
 
-    ref = args.ref if args.ref else get_repo_name_from_url(args.url)
+    ref = args.ref if args.ref else get_repo_name_from_url(git_url)
 
     try:
-        add_template(ref, args.url, args.branch)
+        add_template(ref, git_url, args.branch)
         print(f"Template '{ref}' added successfully.")
     except ValueError as e:
         print(e)
         sys.exit(1)
 
-if __name__ == '__main__':
-    main()
+# Example usage:
+# add(['https://github.com/example/repo.git', '-r', 'customRef', '-b', 'main'])

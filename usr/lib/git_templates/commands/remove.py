@@ -25,10 +25,5 @@ def remove_template(ref):
     print(f"Template '{ref}' removed successfully.")
 
 
-if __name__ == '__main__':
-    if len(sys.argv) != 2:
-        print("Usage: python remove_template.py <ref>")
-        sys.exit(1)
-
-    _ref = sys.argv[1]
-    remove_template(_ref)
+def remove():
+    ...

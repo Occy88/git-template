@@ -76,7 +76,7 @@ setup-poetry:
 	poetry install
 
 test:
-	$(DOCKER_PREFIX) poetry run pytest tests/unit
+	$(DOCKER_PREFIX) poetry run pytest .
 
 pre:
 pre-commit:
