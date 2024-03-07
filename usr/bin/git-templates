@@ -1,7 +1,5 @@
 #!/bin/bash
 
-shift
-
 python3 /usr/lib/git_templates/main.py "$@"
 
 
