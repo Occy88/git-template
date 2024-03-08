@@ -1,12 +1,12 @@
 import pytest
 
-from usr.lib.git_templates import commands
-from usr.lib.git_templates.main import main
+from git_templates import commands
+from git_templates.main import main
 
 # Test for the help message, ensures `-h` works
 @pytest.fixture
 def main_module():
-    return 'usr.lib.git_templates.main'
+    return 'git_templates.main'
 @pytest.fixture
 def mock_sys(mocker,main_module):
     return mocker.patch(f'{main_module}.sys')
