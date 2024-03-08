@@ -110,3 +110,4 @@ analysis/tests/processed/
 media/
 staticfiles/
 .gitconfig.local
+dist

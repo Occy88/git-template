@@ -4,6 +4,7 @@ version = "0.1.0"
 description = ""
 authors = ["Octavio <octavio.delser@gmail.com>"]
 readme = "README.md"
+license = "MIT"
 
 [tool.poetry.dependencies]
 python = "^3.9"
@@ -16,6 +17,9 @@ pytest-cov = "^4.1.0"
 pytest-mock = "^3.12.0"
 pre-commit = "^3.6.2"
 safety = "^3.0.1"
+
+[tool.poetry.scripts]
+git-templates = "git_templates.main:main"
 
 [build-system]
 requires = ["poetry-core"]

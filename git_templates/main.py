@@ -1,6 +1,5 @@
 import sys
-import commands
-
+from . import commands
 def main():
     if len(sys.argv) < 2 or sys.argv[1] not in commands.__all__:
         print(f"Usage: {', '.join(commands.__all__) }")

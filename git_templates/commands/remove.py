@@ -3,7 +3,7 @@ import sys
 import yaml
 from pathlib import Path
 
-from commands.utils import TemplateManager
+from .utils import TemplateManager
 def remove(ref:str,*args):
     # Process the rest of the arguments using argparse
     parser = argparse.ArgumentParser(description="Remove a git template by ref from the .git/templates/meta.yaml file."

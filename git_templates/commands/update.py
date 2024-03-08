@@ -5,7 +5,7 @@ import subprocess
 from pathlib import Path
 import shutil
 
-from commands.utils import TemplateManager
+from .utils import TemplateManager
 
 
 def run_git_command(command, cwd=None):

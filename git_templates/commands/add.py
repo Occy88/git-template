@@ -4,7 +4,7 @@ import argparse
 from pathlib import Path
 from urllib.parse import urlparse
 
-from commands.utils import TemplateManager, Template
+from .utils import TemplateManager, Template
 
 
 
