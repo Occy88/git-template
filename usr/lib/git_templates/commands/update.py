@@ -34,6 +34,8 @@ def clone_or_pull_repository(url, clone_path, branch=None):
 def copy_template_content_to_project_root(template_path, project_root):
     """Copies content from the cloned template to the project root directory."""
     for item in template_path.iterdir():
+        if item.name in {'.git','README.md'}:
+            continue
         dest = project_root / item.name
         if item.is_dir():
             shutil.copytree(item, dest, dirs_exist_ok=True)
