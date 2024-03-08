@@ -9,7 +9,7 @@ jobs:
     runs-on: ubuntu-latest
     environment: production
     container: 
-      image: paketobuildpacks/poetry:latest
+      image: weastur/poetry:latest-python-3.11
     steps:
     - uses: actions/checkout@v2
     - name: Install dependencies
