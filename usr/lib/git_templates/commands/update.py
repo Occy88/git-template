@@ -54,7 +54,7 @@ def update_templates(refs=None):
 
     print("Templates updated successfully.")
 
-def add(*args_list):
+def update(*args_list):
     # Process the rest of the arguments using argparse
     parser = argparse.ArgumentParser(description="Pull and copy latest changes from templates, can specify refs.", add_help=False)
     # Check if the first argument is help
