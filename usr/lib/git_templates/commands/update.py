@@ -54,15 +54,13 @@ def update_templates(refs=None):
 
     print("Templates updated successfully.")
 
-def update(*args_list):
+def update(*args):
     # Process the rest of the arguments using argparse
     parser = argparse.ArgumentParser(description="Pull and copy latest changes from templates, can specify refs.", add_help=False)
     # Check if the first argument is help
-    if args_list and args_list[0] in ['-h', '--help']:
+    if args and args[0] in ['-h', '--help']:
         parser.print_help()
         return
 
-    # Since the URL is already extracted, we parse the remaining args
-    args = parser.parse_args(args_list)
     print(args)
     update_templates(args)
