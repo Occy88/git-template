@@ -21,4 +21,6 @@ jobs:
       - name: Run build
         run: poetry build
       - name: publish
-        run: poetry publish --build --username __token__ --password ${{ secrets.PYPI_API_TOKEN }}
+        env:
+          TOKEN: ${{ secrets.PYPI_API_TOKEN }}
+        run: poetry publish --build --username __token__ --password "$env:TOKEN"
