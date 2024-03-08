@@ -57,7 +57,7 @@ class TemplateManager:
         return ref
 
     def write(self):
-        yaml.dump(self.json(),open(self.file))
+        yaml.safe_dump(self.json(),open(self.file))
         print('Templates written to file')
 
     def json(self):
