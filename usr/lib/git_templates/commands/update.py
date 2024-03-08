@@ -64,4 +64,5 @@ def update(*args_list):
 
     # Since the URL is already extracted, we parse the remaining args
     args = parser.parse_args(args_list)
+    print(args)
     update_templates(args)
