@@ -10,7 +10,7 @@ jobs:
   build-and-test:
     runs-on: ubuntu-latest
     container: 
-      image: python:3.9  # Assuming this image has Poetry pre-installed
+      image: paketobuildpacks/poetry:latest
     steps:
     - uses: actions/checkout@v2
     - name: Install dependencies
