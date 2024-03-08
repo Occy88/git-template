@@ -12,7 +12,7 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       - name: Install dependencies
-        run: poetry install && apt-get update && apt-get install -y git &&  git config --global --add safe.directory $(GITHUB_WORKSPACE}
+        run: poetry install && apt-get update && apt-get install -y git &&  git config --global --add safe.directory ${GITHUB_WORKSPACE}
       - name: quality
         run: make quality
       - name: Run tests
