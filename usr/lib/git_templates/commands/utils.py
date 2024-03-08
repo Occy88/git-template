@@ -38,15 +38,15 @@ class TemplateManager:
     def exists(self,ref,template:Template) -> bool:
         return template in self.templates.values() or ref in self.templates
 
-    def add_template(self, url, ref=None,branch=None):
+    def add_template(self, url, ref=None,branch=None)->bool:
         name=self.get_repo_name_from_url(url)
         ref=ref or name
         template = Template(url=url, branch=branch,ref=ref,name=name)
         if TemplateManager.exists(ref, template):
             print(f"Template '{ref}':{template.url} already exists.")
-            return
+            return False
         TemplateManager.templates[ref] = template
-
+        return True
 
     def get_repo_name_from_url(self,url):
         """Extracts the repository name from a Git URL."""
@@ -63,7 +63,7 @@ class TemplateManager:
     def json(self):
         return {key:val.json() for key,val in self.templates.items()}
 
-    def delete(self,ref,is_url=False):
+    def delete(self,ref,is_url=False)->bool:
         if is_url:
             for key,val in self.templates.items():
                 if val.url==ref:
@@ -73,9 +73,9 @@ class TemplateManager:
             print(f"Ref not found: {ref}")
             print("Installed templates:")
             pprint.pp(self.json())
-            return
+            return False
         del self.templates[ref]
-        print(f"Successfully removed: {ref}")
+        return True
 
     def get_templates(self,refs:List[str]=None)->Optional[Dict[str, Template]]:
         return_refs=self.templates.keys()

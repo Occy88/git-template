@@ -20,8 +20,9 @@ def add(git_url:str,*args_list):
 
     # Since the URL is already extracted, we parse the remaining args
     args = parser.parse_args(args_list)
-    TemplateManager.add_template(ref=args.ref,branch=args.branch,url=git_url)
-    print(f"Successfully added {git_url}.")
-    TemplateManager.write()
+    added=TemplateManager.add_template(ref=args.ref,branch=args.branch,url=git_url)
+    if added:
+        print(f"Successfully added {git_url}.")
+        TemplateManager.write()
 # Example usage:
 # add(['https://github.com/example/repo.git', '-r', 'customRef', '-b', 'main'])

@@ -15,8 +15,10 @@ def remove(ref:str,*args_list):
         return
     # Since the URL is already extracted, we parse the remaining args
     args = parser.parse_args(args_list)
-    TemplateManager.delete(ref,is_url='git@' in ref)
-    TemplateManager.write()
+    result=TemplateManager.delete(ref,is_url='git@' in ref)
+    if result:
+        print(f"Successfully removed: {ref}")
+        TemplateManager.write()
 
 
 def remove():
