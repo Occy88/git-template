@@ -18,6 +18,13 @@ jobs:
         run: make quality
       - name: Run tests
         run: make test
+      - name: Increment package version and commit
+        run: |
+          poetry version patch
+          git config --global user.email "octavio.delser@gmail.com"
+          git config --global user.name "occy88"
+          git commit -am "Increment package version [skip ci]"
+          git push
       - name: publish
         env:
           TOKEN: ${{ secrets.PYPI_API_TOKEN }}
