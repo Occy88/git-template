@@ -2,23 +2,23 @@ name: Python Package CI/CD Workflow
 
 on:
   push:
-    branches: [ 'main' ]
+    branches: ["main"]
 
 jobs:
   deploy:
     runs-on: ubuntu-latest
     environment: production
-    container: 
+    container:
       image: weastur/poetry:latest-python-3.11
     steps:
-    - uses: actions/checkout@v2
-    - name: Install dependencies
-      run: poetry install
-    - name: quality
-      run: make quality
-    - name: Run tests
-      run: make test
-    - name: Run build
-      run: poetry build
-    - name: publish
-      run: poetry publish
+      - uses: actions/checkout@v2
+      - name: Install dependencies
+        run: poetry install
+      - name: quality
+        run: make quality
+      - name: Run tests
+        run: make test
+      - name: Run build
+        run: poetry build
+      - name: publish
+        run: poetry publish
