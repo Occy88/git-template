@@ -1,8 +1,12 @@
+import argparse
 import sys
 import yaml
 import subprocess
 from pathlib import Path
 import shutil
+
+from commands.utils import TemplateManager
+
 
 def run_git_command(command, cwd=None):
     """Executes a Git command using subprocess."""
@@ -38,31 +42,26 @@ def copy_template_content_to_project_root(template_path, project_root):
 
 def update_templates(refs=None):
     """Updates templates by cloning or pulling them and then copying their contents to the project root."""
-    templates_path = Path('.git/templates/meta.yaml')
-    project_root = Path('./')
 
-    if not templates_path.exists():
-        raise FileNotFoundError("Templates file not found.")
-
-    with open(templates_path) as file:
-        templates = yaml.safe_load(file) or {}
-
-    if refs:
-        missing_refs = [ref for ref in refs if ref not in templates]
-        if missing_refs:
-            raise ValueError(f"Templates not found: {', '.join(missing_refs)}")
-        templates_to_update = {ref: templates[ref] for ref in refs}
-    else:
-        templates_to_update = templates
-
-    for ref, details in templates_to_update.items():
-        url = details['url']
-        branch = details.get('branch')
-        clone_path = Path('.git/templates') / ref
-        clone_or_pull_repository(url, clone_path, branch)
-        copy_template_content_to_project_root(clone_path, project_root)
+    templates_to_update=TemplateManager.get_templates(refs=refs)
+    if not templates_to_update:
+        print("No templates")
+        return
+    for key,val in templates_to_update.items():
+        clone_or_pull_repository(val.url, val.path, val.branch)
+        copy_template_content_to_project_root(val.path,  project_root = Path('./')
+    )
 
     print("Templates updated successfully.")
 
-def update():
-    ...
+def add(*args_list):
+    # Process the rest of the arguments using argparse
+    parser = argparse.ArgumentParser(description="Pull and copy latest changes from templates, can specify refs.", add_help=False)
+    # Check if the first argument is help
+    if args_list and args_list[0] in ['-h', '--help']:
+        parser.print_help()
+        return
+
+    # Since the URL is already extracted, we parse the remaining args
+    args = parser.parse_args(args_list)
+    update_templates(args)

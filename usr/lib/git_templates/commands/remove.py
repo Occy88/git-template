@@ -1,28 +1,22 @@
+import argparse
 import sys
 import yaml
 from pathlib import Path
 
+from commands.utils import TemplateManager
+def remove(ref:str,*args_list):
+    # Process the rest of the arguments using argparse
+    parser = argparse.ArgumentParser(description="Remove a git template by ref from the .git/templates/meta.yaml file."
+                                                 "if arg contains `git@` will attempt to remove by url", add_help=False)
 
-def remove_template(ref):
-    templates_path = Path('.git/templates/meta.yaml')
-
-    if not templates_path.exists():
-        print("No templates file found.")
+    # Check if the first argument is help
+    if ref in ['-h', '--help']:
+        parser.print_help()
         return
-
-    with open(templates_path) as file:
-        templates = yaml.safe_load(file) or {}
-
-    if ref not in templates:
-        print(f"Template '{ref}' does not exist.")
-        return
-
-    del templates[ref]
-
-    with open(templates_path, 'w') as file:
-        yaml.safe_dump(templates, file)
-
-    print(f"Template '{ref}' removed successfully.")
+    # Since the URL is already extracted, we parse the remaining args
+    args = parser.parse_args(args_list)
+    TemplateManager.delete(ref,is_url='git@' in ref)
+    TemplateManager.write()
 
 
 def remove():
