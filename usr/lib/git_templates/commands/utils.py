@@ -29,6 +29,7 @@ class TemplateManager:
     def __init__(self,path:str='.git/templates/meta.yaml') -> None:
         self.file = Path(path)
         self.file.parent.mkdir(parents=True, exist_ok=True)
+        self.file.touch(exist_ok=True)
         templates = yaml.safe_load(open(self.file)) or {}
         self.templates = templates
         for key,val in templates.items():
