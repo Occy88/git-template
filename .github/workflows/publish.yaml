@@ -13,7 +13,7 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       - name: Install dependencies
-        run: poetry install
+        run: poetry install && apt-get update && apt-get install -y git
       - name: quality
         run: make quality
       - name: Run tests
